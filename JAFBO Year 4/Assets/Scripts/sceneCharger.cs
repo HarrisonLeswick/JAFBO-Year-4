@@ -10,7 +10,7 @@ public class sceneCharger : MonoBehaviour
     Cauldron Room: 1
     */
     
-    public int housseNumber;
+    public int houseNumber;
 
     void Update()
     {
@@ -18,7 +18,7 @@ public class sceneCharger : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other){
-        Debug.Log("Hit the door");
-        SceneManager.LoadScene (sceneBuildIndex: housseNumber);
+        Debug.Log("On your way to scene " + houseNumber);
+        SceneManager.LoadScene (sceneBuildIndex: houseNumber);
     }
 }
