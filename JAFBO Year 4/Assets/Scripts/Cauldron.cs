@@ -55,6 +55,10 @@ public class Cauldron : MonoBehaviour
     public CauldronState currentState;
     public BoxCollider2D cauldronTrigger;
 
+    //variables for sprite switching
+    public SpriteRenderer sprite;
+    public Sprite[] images;
+
     public Simmer simmering;
     public Stir stirring;
     //use DontDestroyOnLoad or something like that so that we can initialize some values in Start
@@ -114,8 +118,34 @@ public class Cauldron : MonoBehaviour
         BoilOverPercent = (BoilOverPercent >= 0f) ? BoilOverPercent : 0f;
         if (BoilOverPercent >= 100f)
         {
-            Debug.Log("KABOOM! your potion has exploded :O");
+            Debug.Log("KABOOM! your potion has exploded :O (image 4)");
+            //change image to exploded
+            sprite.sprite = images[4];
             activeMode = false;
+        }
+        else if (BoilOverPercent >= 75 && BoilOverPercent < 100)
+        {
+            //change image to many bubbles
+            sprite.sprite = images[3];
+            Debug.Log("image 3");
+        }
+        else if (BoilOverPercent >= 50 && BoilOverPercent < 75)
+        {
+            //change image to average bubbles
+            sprite.sprite = images[2];
+            Debug.Log("image 2");
+        }
+        else if (BoilOverPercent >= 25 && BoilOverPercent < 50)
+        {
+            //change image to few bubbles
+            sprite.sprite = images[1];
+            Debug.Log("image 1");
+        }
+        else if (BoilOverPercent >= 0 && BoilOverPercent < 25)
+        {
+            //change image to no bubbles
+            sprite.sprite = images[0];
+            Debug.Log("image 0");
         }
     }
 

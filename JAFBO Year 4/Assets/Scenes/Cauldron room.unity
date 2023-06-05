@@ -1189,6 +1189,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cauldronTrigger: {fileID: 0}
+  sprite: {fileID: 1500386325}
+  images:
+  - {fileID: 21300000, guid: 9e1a615b296f6a642b75426bb82e8aa5, type: 3}
+  - {fileID: 21300000, guid: df1603328a8b03b4cb2c7af78367b73b, type: 3}
+  - {fileID: 21300000, guid: 35ea83ebc28057741a67b35a264163e8, type: 3}
+  - {fileID: 21300000, guid: 467024b0b44a4d648a3d355d0331b1a6, type: 3}
+  - {fileID: 21300000, guid: e9aaf452b8e269f489d8fd775fb3d97f, type: 3}
   drainRates:
   - 1
   - 1
