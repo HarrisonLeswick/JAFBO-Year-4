@@ -13,7 +13,7 @@ public class slot : MonoBehaviour, IDropHandler
         Debug.Log(dropped.tag);
 
         pickup pickup = dropped.GetComponent<pickup>();
-        pickup.parentAfterDrag = transform;
+        pickup.parentAfterDrag = transform; //sets the new parent to be the item seen with the ondrop activity
         
         Debug.Log("On drop");
     }

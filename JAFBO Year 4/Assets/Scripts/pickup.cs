@@ -20,7 +20,7 @@ public class pickup : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEn
     {
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root); // becomes a child off the UI 
-        transform.SetAsLastSibling();
+        transform.SetAsLastSibling(); //so the image is closest to camera
         Debug.Log("On Begin");
         image.raycastTarget = false;
     }
@@ -28,7 +28,7 @@ public class pickup : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEn
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("On Drag");
-        transform.position = Input.mousePosition;
+        transform.position = Input.mousePosition; // tracks mouse
 
     }
 
@@ -37,7 +37,7 @@ public class pickup : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEn
     {
         Debug.Log("On End");
         image.raycastTarget = true;
-        transform.SetParent(parentAfterDrag);
+        transform.SetParent(parentAfterDrag); //goes to parent either new  ondrop object or the earlier parent
     }
 
 
