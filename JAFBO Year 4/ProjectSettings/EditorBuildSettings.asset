@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/Castle.unity
+    guid: e1700153126a04a4faf2d4196c6cdca5
   - enabled: 1
     path: Assets/Scenes/Cauldron room.unity
     guid: 90ab3be6f11e5c041882b6587fc85f29
+  - enabled: 1
+    path: Assets/Scenes/Inventory Room.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

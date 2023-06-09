@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 public class sceneCharger : MonoBehaviour
 {
     /*Current HouseNumbers:
-    Main Scene: 0
+    Castle: 0
     Cauldron Room: 1
+    Inventory Room: 2
     */
     
     public int houseNumber;
