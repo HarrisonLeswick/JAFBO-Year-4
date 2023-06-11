@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class sceneCharger : MonoBehaviour
+public class sceneCharger : MonoBehaviour, IPointerDownHandler
 {
     /*Current HouseNumbers:
     Castle: 0
@@ -18,7 +20,8 @@ public class sceneCharger : MonoBehaviour
     public enum DoorType
     {
         Automatic,
-        Manual
+        Manual,
+        OnClick
     }
     public DoorType doorType;
 
@@ -53,6 +56,15 @@ public class sceneCharger : MonoBehaviour
         //Removes right to change scenes with a button press for automation
         if( doorType == DoorType.Manual){
             manualCheck = false;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData){
+    //Uses unity events to check if the object has been clicked on and if it has teleport you
+    // **IMPORTANT FOR USE** Any scene using a Onclick door must have a physics 2d raycaster on its camera and an event system in the hierarchy
+         if( doorType == DoorType.OnClick){
+            Debug.Log("On your way to scene " + houseNumber);
+            SceneManager.LoadScene (sceneBuildIndex: houseNumber);
         }
     }
 }
