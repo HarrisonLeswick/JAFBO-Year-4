@@ -2,162 +2,135 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface CauldronState
-{
-    void MeterUpdate();
-    void SwapState();
-}
-
-public class Simmer : CauldronState
-{
-    Cauldron cRef;
-
-    public Simmer(Cauldron c)
-    {
-        cRef = c;
-    }
-
-    public void MeterUpdate()
-    {
-        cRef.AdjustEnergy(cRef.drainRates[0] * Time.deltaTime);
-        cRef.AdjustBoilOver(cRef.drainRates[2] * Time.deltaTime);
-    }
-
-    public void SwapState()
-    {
-        cRef.SetState(cRef.stirring);
-    }
-}
-
-public class Stir : CauldronState
-{
-    Cauldron cRef;
-
-    public Stir(Cauldron c)
-    {
-        cRef = c;
-    }
-
-    public void MeterUpdate()
-    {
-        cRef.AdjustEnergy(-cRef.drainRates[1] * Time.deltaTime);
-        cRef.AdjustBoilOver(-cRef.drainRates[3] * Time.deltaTime);
-    }
-    public void SwapState()
-    {
-        cRef.SetState(cRef.simmering);
-    }
-}
-
 
 public class Cauldron : MonoBehaviour
 {
-    public CauldronState currentState;
     public BoxCollider2D cauldronTrigger;
+    
 
     //variables for sprite switching
     public SpriteRenderer sprite;
     public Sprite[] images;
-
-    public Simmer simmering;
-    public Stir stirring;
+    private int imgInterval;
+    
     //use DontDestroyOnLoad or something like that so that we can initialize some values in Start
+    public float energy = 50f;
+    public float boilOverPercent = 50f;
     //0/1: simmer/stir energy   2/3: simmer/stir boil
     public float[] drainRates = new float[4];
 
-
-    public float Energy = 50f;
-    public float BoilOverPercent = 50f;
-    bool activeMode = false;
+    //bool for is cauldron is simmering or being stirred because apparently the last thing i did was too complicated
+    public bool isSimmering = true;
+    //bool for whether to update our meters this frame or not
+    bool cauldronIsActive = false;
 
 
     
     // Start is called before the first frame update
     void Start()
     {
-        simmering = new Simmer(this);
-        stirring = new Stir(this);
+        //set the cauldron to active
+        cauldronIsActive = true;
 
-        currentState = simmering;
-        activeMode = true;
+        //i already explained what the fuck this means here: https://docs.google.com/document/d/16Y_kvmv-cT6F_tFJ95Qupm8Yd1u2093iFchm8Ggx5D8/edit?usp=sharing 
+        imgInterval = 100 / (images.Length - 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (activeMode)
+        //if the cauldron hasn't exploded yet, update your stats
+        if (cauldronIsActive)
         {
             UpdateMeters();
         }
     }
 
-
+    /// <summary>
+    /// Updates the player's energy and the cauldron's BoilOver meter
+    /// </summary>
     public void UpdateMeters()
     {
-        currentState.MeterUpdate();
-    }
-    public void SetState(CauldronState cState)
-    {
-        currentState = cState;
+        //is this fucking clearer?
+        if (isSimmering)
+        {
+            AdjustEnergy(drainRates[0] * Time.deltaTime);//gain energy as you are not stirring
+            AdjustBoilOver(drainRates[2] * Time.deltaTime);//the pot gets closer to boiling over as it is being left unattended
+            
+        }
+        else
+        {
+            AdjustEnergy(-drainRates[1] * Time.deltaTime);//lose energy as you are currently using it to stir
+            AdjustBoilOver(-drainRates[3] * Time.deltaTime);//the pot is being stirred so it is calming and the boilover is going down
+        }
     }
 
+    /// <summary>
+    /// Modifies the player's energy
+    /// </summary>
+    /// <param name="adjustVal">the amount by which the player's energy is being changed</param>
     public void AdjustEnergy(float adjustVal)
     {
-        Energy += adjustVal;
-        Energy = (Energy <= 100.00) ? Energy : 100.00f;
-        if(Energy <= 0f)
+        energy += adjustVal;
+        energy = (energy <= 100.00) ? energy : 100.00f;//don't let energy be higher than 100
+        if(energy <= 0f)
         {
-            Debug.Log("no energy!");
-            Energy = 0f;
+            Debug.Log("no energy!");//redundant, should probably actually have feedback or something else happen here
+            energy = 0f;//don't let energy be negative
         }
     }
 
+    /// <summary>
+    /// Modifies boilOverPercent.
+    /// Will then update the sprite based on the value of boilOverPercent
+    /// </summary>
+    /// <param name="adjustVal">the amount by which boilOverPercent will be modified</param>
     public void AdjustBoilOver(float adjustVal)
     {
-        BoilOverPercent += adjustVal;
-        BoilOverPercent = (BoilOverPercent >= 0f) ? BoilOverPercent : 0f;
-        if (BoilOverPercent >= 100f)
+        boilOverPercent += adjustVal;
+        boilOverPercent = (boilOverPercent >= 0f) ? boilOverPercent : 0f;//don't let boilover be negative
+
+        //update the sprite now
+
+        //if this reaches 100%, the cauldron has boiled over, get fucked and shit
+        if (boilOverPercent >= 100f)
         {
-            Debug.Log("KABOOM! your potion has exploded :O (image 4)");
+            Debug.Log("KABOOM! your potion has exploded :O (image 4)");//redundant
             //change image to exploded
             sprite.sprite = images[4];
-            activeMode = false;
+            //the cauldron will no longer update, this is a temp solution for not kicking the player out on a failure
+            cauldronIsActive = false;
         }
-        else if (BoilOverPercent >= 75 && BoilOverPercent < 100)
+        else 
         {
-            //change image to many bubbles
-            sprite.sprite = images[3];
-            Debug.Log("image 3");
-        }
-        else if (BoilOverPercent >= 50 && BoilOverPercent < 75)
-        {
-            //change image to average bubbles
-            sprite.sprite = images[2];
-            Debug.Log("image 2");
-        }
-        else if (BoilOverPercent >= 25 && BoilOverPercent < 50)
-        {
-            //change image to few bubbles
-            sprite.sprite = images[1];
-            Debug.Log("image 1");
-        }
-        else if (BoilOverPercent >= 0 && BoilOverPercent < 25)
-        {
-            //change image to no bubbles
-            sprite.sprite = images[0];
-            Debug.Log("image 0");
+            //setting the sprite by doing some silly and goofy math, dw about it lmfao
+            //"aCtuaLLy i Am woRriEd aBouT iT": fine, fuck you, here you go: https://docs.google.com/document/d/16Y_kvmv-cT6F_tFJ95Qupm8Yd1u2093iFchm8Ggx5D8/edit?usp=sharing 
+            sprite.sprite = images[(int)(boilOverPercent / imgInterval)];
+            //can someone find out if we're taking a performance hit if we set the sprite every fucking frame? we can probably optimize this
         }
     }
 
+    /// <summary>
+    /// called when the player enters the trigger attached to the cauldron.
+    /// sets the state to stirring
+    /// </summary>
+    /// <param name="collision"></param>
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        currentState.SwapState();
-        Debug.Log("Stirring the potion");
+        //set isSimmering to false because we are stirring
+        isSimmering = false;
+        Debug.Log("Stirring the potion");//redundant output
     }
 
+    /// <summary>
+    /// called when the player exits the trigger attached to the cauldron. 
+    /// sets the state to simmering
+    /// </summary>
+    /// <param name="collision"></param>
     public void OnTriggerExit2D(Collider2D collision)
     {
-        currentState.SwapState();
-        Debug.Log("Letting the potion simmer");
+        //set isSimmering to true because the cauldron is being left to simmer
+        isSimmering = true;
+        Debug.Log("Letting the potion simmer");//redundant output
     }
 }
