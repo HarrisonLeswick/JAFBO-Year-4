@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Cauldron : MonoBehaviour
 {
+    //the trigger that will currently activate the stirring state
     public BoxCollider2D cauldronTrigger;
-    
 
     //variables for sprite switching
     public SpriteRenderer sprite;
@@ -19,7 +19,7 @@ public class Cauldron : MonoBehaviour
     //0/1: simmer/stir energy   2/3: simmer/stir boil
     public float[] drainRates = new float[4];
 
-    //bool for is cauldron is simmering or being stirred because apparently the last thing i did was too complicated
+    //readable bool for if cauldron is simmering or being stirred 
     public bool isSimmering = true;
     //bool for whether to update our meters this frame or not
     bool cauldronIsActive = false;
@@ -32,7 +32,7 @@ public class Cauldron : MonoBehaviour
         //set the cauldron to active
         cauldronIsActive = true;
 
-        //i already explained what the fuck this means here: https://docs.google.com/document/d/16Y_kvmv-cT6F_tFJ95Qupm8Yd1u2093iFchm8Ggx5D8/edit?usp=sharing 
+        //this calculates the interval at which we change the cauldron sprite. i elaborate more on it in the link in AdjustBoilOver()
         imgInterval = 100 / (images.Length - 1);
     }
 
@@ -51,7 +51,9 @@ public class Cauldron : MonoBehaviour
     /// </summary>
     public void UpdateMeters()
     {
-        //is this fucking clearer?
+        //assuming the potion phase has not ended, we will constantly adjust the player's energy and the potion's boilover every frame
+
+        //switched to simple bool for readability
         if (isSimmering)
         {
             AdjustEnergy(drainRates[0] * Time.deltaTime);//gain energy as you are not stirring
@@ -92,7 +94,7 @@ public class Cauldron : MonoBehaviour
 
         //update the sprite now
 
-        //if this reaches 100%, the cauldron has boiled over, get fucked and shit
+        //if this reaches 100%, the cauldron has boiled over, so we need to make it explode and stop doing cauldron updates
         if (boilOverPercent >= 100f)
         {
             Debug.Log("KABOOM! your potion has exploded :O (image 4)");//redundant
@@ -104,9 +106,9 @@ public class Cauldron : MonoBehaviour
         else 
         {
             //setting the sprite by doing some silly and goofy math, dw about it lmfao
-            //"aCtuaLLy i Am woRriEd aBouT iT": fine, fuck you, here you go: https://docs.google.com/document/d/16Y_kvmv-cT6F_tFJ95Qupm8Yd1u2093iFchm8Ggx5D8/edit?usp=sharing 
+            //if you are actually worried about it, i explained it in a very passive-aggressive manner here: https://docs.google.com/document/d/16Y_kvmv-cT6F_tFJ95Qupm8Yd1u2093iFchm8Ggx5D8/edit?usp=sharing 
             sprite.sprite = images[(int)(boilOverPercent / imgInterval)];
-            //can someone find out if we're taking a performance hit if we set the sprite every fucking frame? we can probably optimize this
+            //we can probably optimize this later and only update the sprite if there's a change
         }
     }
 
