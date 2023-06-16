@@ -8,6 +8,9 @@ public class Cauldron : MonoBehaviour
     //the trigger that will currently activate the stirring state
     public BoxCollider2D cauldronTrigger;
 
+    //gameobject reference used to affect the energybar
+    public GameObject energyBar;
+
     //variables for sprite switching
     public SpriteRenderer sprite;
     public Sprite[] images;
@@ -62,8 +65,10 @@ public class Cauldron : MonoBehaviour
         }
         else
         {
+
             AdjustEnergy(-drainRates[1] * Time.deltaTime);//lose energy as you are currently using it to stir
             AdjustBoilOver(-drainRates[3] * Time.deltaTime);//the pot is being stirred so it is calming and the boilover is going down
+            
         }
     }
 
@@ -119,9 +124,12 @@ public class Cauldron : MonoBehaviour
     /// <param name="collision"></param>
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        //tells enrgy to start decaying
+        energyBar.GetComponent<energyBar>().Stirring();
         //set isSimmering to false because we are stirring
         isSimmering = false;
         Debug.Log("Stirring the potion");//redundant output
+
     }
 
     /// <summary>
@@ -131,6 +139,8 @@ public class Cauldron : MonoBehaviour
     /// <param name="collision"></param>
     public void OnTriggerExit2D(Collider2D collision)
     {
+        //tells enrgy to start gaining
+        energyBar.GetComponent<energyBar>().StopStirring();
         //set isSimmering to true because the cauldron is being left to simmer
         isSimmering = true;
         Debug.Log("Letting the potion simmer");//redundant output
