@@ -3361,6 +3361,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dcc1d72c43c7a4eb8bb4ac083a9af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 1253602336}
+  faces:
+  - {fileID: 21300000, guid: 7a9b2c7ce889c6d4bbff53cd3ccfd5bb, type: 3}
+  - {fileID: 21300000, guid: bc0d7670967b0f745959ab4d82dcc550, type: 3}
+  - {fileID: 21300000, guid: 869540d514b130b4896af687f979b234, type: 3}
+  - {fileID: 21300000, guid: 6fc16084f142b4f4a84774282af66e7e, type: 3}
+  - {fileID: 21300000, guid: 660fb35eb4e5a8f45886812a9e5c5763, type: 3}
+  energyLvl: 100
+  decaySpeed: 0.4
 --- !u!1 &1255385569
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,6 +3911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cauldronTrigger: {fileID: 0}
+  energyBar: {fileID: 1253602334}
   sprite: {fileID: 1500386325}
   images:
   - {fileID: 21300000, guid: 9e1a615b296f6a642b75426bb82e8aa5, type: 3}
