@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class doNotDestroy : MonoBehaviour
 {
-    public int door;
+    public int door = -1;
     public static doNotDestroy Instance = null;
 
     private void Awake() { 
