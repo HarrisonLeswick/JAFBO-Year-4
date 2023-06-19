@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Alchemy;
 
 
 public class Cauldron : MonoBehaviour
@@ -21,6 +22,8 @@ public class Cauldron : MonoBehaviour
     public float boilOverPercent = 50f;
     //0/1: simmer/stir energy   2/3: simmer/stir boil
     public float[] drainRates = new float[4];
+    public List<IngredientSubclass> order;
+    int currentOrderIndex = -1;
 
     //readable bool for if cauldron is simmering or being stirred 
     public bool isSimmering = true;
