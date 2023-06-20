@@ -12,6 +12,9 @@ public class CrystalBall : MonoBehaviour
 
    private int currentItem;
 
+   //objecct for the background swirl 
+   public GameObject ballUi;
+
     //assignale wait time, defaulted to 2 seconds
     [SerializeField]
    private float waitTime = 2;
@@ -32,6 +35,7 @@ public class CrystalBall : MonoBehaviour
         {
             //activate visual and begin coroutine
             spriteRenderer.gameObject.SetActive(true);
+            ballUi.SetActive(true);
             StartCoroutine(showRecipe);
         }   
     }
@@ -42,6 +46,7 @@ public class CrystalBall : MonoBehaviour
         {
             //de-activating visual, stopping and resetting coroutine
             spriteRenderer.gameObject.SetActive(false);
+            ballUi.SetActive(false);
             StopAllCoroutines();
             currentItem = 0;
         }

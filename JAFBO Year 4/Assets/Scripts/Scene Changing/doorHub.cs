@@ -11,7 +11,8 @@ public class doorHub : MonoBehaviour
         Left,
         Right,
         Up,
-        Down
+        Down,
+        DoubleDown
     }
 
     //list of doors to manage in the scenes
@@ -55,6 +56,9 @@ public class doorHub : MonoBehaviour
         //used to spawn if you have down offset        
         else if(offsets[door] == Offset.Down){
             player.transform.position =  doors[door].transform.position + new Vector3(0, -1, 0);
+        }
+        else if(offsets[door] == Offset.DoubleDown){
+            player.transform.position =  doors[door].transform.position + new Vector3(0, -2, 0);
         }
     }
 
