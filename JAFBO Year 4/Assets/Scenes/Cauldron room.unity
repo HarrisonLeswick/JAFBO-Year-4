@@ -2415,6 +2415,7 @@ GameObject:
   - component: {fileID: 1253602337}
   - component: {fileID: 1253602336}
   - component: {fileID: 1253602338}
+  - component: {fileID: 1253602339}
   m_Layer: 5
   m_Name: Energy Bar
   m_TagString: Untagged
@@ -2487,7 +2488,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1253602334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5dcc1d72c43c7a4eb8bb4ac083a9af4, type: 3}
   m_Name: 
@@ -2501,6 +2502,27 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 660fb35eb4e5a8f45886812a9e5c5763, type: 3}
   energyLvl: 100
   decaySpeed: 0.4
+--- !u!114 &1253602339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253602334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8f3a889d995b541a83f65df6341bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  imageRenderer: {fileID: 1253602336}
+  phases:
+  - {fileID: 21300000, guid: 660fb35eb4e5a8f45886812a9e5c5763, type: 3}
+  - {fileID: 21300000, guid: 3c61174ba69c33441a6fae43637ca539, type: 3}
+  - {fileID: 21300000, guid: 24222f94737db904b8e01cc0d9e11841, type: 3}
+  - {fileID: 21300000, guid: 79fb4fd0ca198f14482d5b8ad522df8f, type: 3}
+  - {fileID: 21300000, guid: 089c6bfb3535bcf449e61d07b05622e9, type: 3}
+  useSprite: 0
 --- !u!1 &1255385569
 GameObject:
   m_ObjectHideFlags: 0
@@ -2861,6 +2883,7 @@ GameObject:
   - component: {fileID: 1500386324}
   - component: {fileID: 1500386328}
   - component: {fileID: 1500386327}
+  - component: {fileID: 1500386329}
   m_Layer: 0
   m_Name: cauldron
   m_TagString: Untagged
@@ -2999,8 +3022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7457d0511b6df07408fce90ec5689dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cauldronTrigger: {fileID: 0}
-  energyBar: {fileID: 1253602334}
+  cauldronTrigger: {fileID: 1500386327}
+  energyUI: {fileID: 1253602339}
+  cauldronUI: {fileID: 1500386329}
   sprite: {fileID: 1500386325}
   images:
   - {fileID: 21300000, guid: c54ade00f7cbe4843b1d52ac395a03af, type: 3}
@@ -3008,7 +3032,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a00bda923a21c214cb921ef2e4d0d7df, type: 3}
   - {fileID: 21300000, guid: f760a8d9010094a4f865ae455045ed2d, type: 3}
   - {fileID: 21300000, guid: 168baac11c03156418f319650f8df29b, type: 3}
-  energy: 50
+  exhaustion: 0
   boilOverPercent: 50
   drainRates:
   - 1
@@ -3017,6 +3041,27 @@ MonoBehaviour:
   - 10
   order: 
   isSimmering: 1
+--- !u!114 &1500386329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500386323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8f3a889d995b541a83f65df6341bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1500386325}
+  imageRenderer: {fileID: 0}
+  phases:
+  - {fileID: 21300000, guid: c54ade00f7cbe4843b1d52ac395a03af, type: 3}
+  - {fileID: 21300000, guid: be66bef8280dd3b49a6f913aef4b866b, type: 3}
+  - {fileID: 21300000, guid: a00bda923a21c214cb921ef2e4d0d7df, type: 3}
+  - {fileID: 21300000, guid: f760a8d9010094a4f865ae455045ed2d, type: 3}
+  - {fileID: 21300000, guid: 168baac11c03156418f319650f8df29b, type: 3}
+  useSprite: 1
 --- !u!1 &1545941407
 GameObject:
   m_ObjectHideFlags: 0
