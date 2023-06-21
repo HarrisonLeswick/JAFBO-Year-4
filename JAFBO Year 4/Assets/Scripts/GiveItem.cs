@@ -1,60 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Alchemy;
 
 //this script handles chacking if player is near object generating location and will generate the visual of the held object
 //for the player to see they are holding it
 public class GiveItem : MonoBehaviour
 {
-    
-    private bool playerInRange;
+    //bool for if we can intereact
+    private bool playerInRange = false;
 
+    //uses joeys ingredient enums and they are selected in the inspector
     [SerializeField]
-    private GameObject itemToGive;
+    private IngredientSubclass itemType;
     
-    //should probably get a singleton setup for referencing player later
+    //sour player reference to be able to communicate with the held script
     [SerializeField]
     private GameObject player;
     void Update()
     {
-        //E to interact, changable later if needed
+        //E to pick up item
         if(Input.GetKeyDown(KeyCode.E))
         {
-            //if player is near dirt drawer (or watever they are grabbing items from)
+            //if the player is near the object 
             if(playerInRange)
             {
                 //if player already holding item do nothing
                 if(!player.GetComponent<HoldItem>().GetHoldingItem())
                 {
-                    //if hands empty then create visual ofheld item as child of player and set holding item state to true
-                    CreateItem();
+                    //sends the type of item to the players holditem script
                     Debug.Log("Item Given");
-                    player.GetComponent<HoldItem>().SetHoldingItem(true);
+                    player.GetComponent<HoldItem>().SetHoldingItem(itemType);
                 }
             }
-            
+ 
         }
-        
+                
     }
 
-    //updates the bool tracking if player in trigger
+    //updates the bool tracking if player in range to true
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player"))
         {
             playerInRange = true;
         }
     }
+    //updates the bool tracking if player in range to false
     private void OnTriggerExit2D(Collider2D other) {
         if(other.CompareTag("Player"))
         {
             playerInRange = false;
         }
-    }
-
-    //generate very simple item visual prefab
-    public void CreateItem()
-    {
-        Instantiate(itemToGive, player.transform);
     }
 }
