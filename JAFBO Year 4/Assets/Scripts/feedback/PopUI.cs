@@ -6,10 +6,12 @@ public class PopUI : MonoBehaviour
 {
     private bool inRange = false;
 
+    //UI to pop
     [SerializeField]
     private GameObject uiCanvas;
 
 
+    //when player in range
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player"))
         {
@@ -17,6 +19,7 @@ public class PopUI : MonoBehaviour
         }
     }
 
+    //when player leaves range
     private void OnTriggerExit2D(Collider2D other) {
         if(other.CompareTag("Player"))
         {
@@ -24,6 +27,7 @@ public class PopUI : MonoBehaviour
         }
     }
 
+    //pop UI if interacted with
     private void Update() {
         if(Input.GetKeyDown(KeyCode.E) && inRange)
         {
