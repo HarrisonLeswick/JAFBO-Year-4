@@ -3210,6 +3210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 562687678}
   - component: {fileID: 562687679}
+  - component: {fileID: 562687680}
   m_Layer: 0
   m_Name: DoNotDestroy
   m_TagString: DoNotDestroy
@@ -3245,6 +3246,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   door: -1
+--- !u!114 &562687680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562687676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29349e3d3843d3143be8ab1c58011d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &601946653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3300,6 +3313,10 @@ PrefabInstance:
     - target: {fileID: 3517851657965706052, guid: ea82bd69f15945a48bb2282324fe7c62, type: 3}
       propertyPath: m_Name
       value: character
+      objectReference: {fileID: 0}
+    - target: {fileID: 3517851657965706053, guid: ea82bd69f15945a48bb2282324fe7c62, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3517851657965706062, guid: ea82bd69f15945a48bb2282324fe7c62, type: 3}
       propertyPath: m_Size.x
